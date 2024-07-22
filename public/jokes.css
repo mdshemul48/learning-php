@@ -1,0 +1,33 @@
+* {
+  padding: 0px;
+  margin: 0px;
+  font-family: "Arial";
+}
+header {
+  padding: 5rem;
+  background-color: #3cb98c;
+  color: #fefefe;
+}
+
+nav {
+  background-color: #41375a;
+}
+nav ul {
+  display: flex;
+  justify-content: space-around;
+}
+nav ul li {
+  list-style: none;
+  padding: 25px;
+  font-size: 25px;
+}
+nav ul li a {
+  color: white;
+  text-decoration: none;
+}
+
+footer {
+  background-color: #ffc8a5;
+  padding: 20px 5px;
+  margin-top: 50px;
+}
