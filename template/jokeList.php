@@ -13,6 +13,11 @@
                 <td><?= $row["id"] ?></td>
                 <td><?= $row["joketext"] ?></td>
                 <td><?= $row["jokedate"] ?></td>
+                <td>
+                    <form action="deletejoke.php" method="post">
+                        <button type="submit" name="deletebtn" value="<?= $row["id"] ?>">delete</button>
+                    </form>
+                </td>
             </tr>
         <?php endforeach ?>
     </tbody>

@@ -70,9 +70,12 @@ foreach ($result as $row) {
 
 <?php echo $something?> can be written as <?=$something?>
 
+
+//---------------------
 ob_start(); // with this we can capture the echo and print from the output buffer.
 include __DIR__ . '/../templates/home.html.php';
 $output = ob_get_clean();
+//---------------------
 
 htmlspecialchars($_POST["firstname"], ENT_QUOTES, "UTF-8") // serialize data
 
