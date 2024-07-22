@@ -31,3 +31,11 @@ footer {
   padding: 20px 5px;
   margin-top: 50px;
 }
+
+.home-welcome {
+  padding: 100px 50px;
+}
+.home-welcome h2 {
+  font-size: 3rem;
+  margin-bottom: 15px;
+}

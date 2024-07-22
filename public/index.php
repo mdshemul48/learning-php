@@ -1,8 +1,8 @@
 <?php
 
-
+$title = "Home | IJDB";
 ob_start();
-echo "hello world";
+include __DIR__ . "/../template/home.html.php";
 $output = ob_get_clean();
 
 
