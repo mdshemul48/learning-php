@@ -24,6 +24,11 @@ UPDATE `joke` SET `jokedate` = "2018-04-01" WHERE id = "1"; -- update row
 
 DELETE FROM `joke` WHERE  `joketext` LIKE "%programmer%"; -- delete row.
 
+
+INSERT INTO `joke` SET
+`joketext` = :joketext,
+`jokedate` = CURDATE(); -- with CURDATE function generate date.
+
 ```
 
 # php notes
@@ -70,4 +75,24 @@ include __DIR__ . '/../templates/home.html.php';
 $output = ob_get_clean();
 
 htmlspecialchars($_POST["firstname"], ENT_QUOTES, "UTF-8") // serialize data
+
+
+// send sql and the joketext value separately. So that user cant run sql within value.
+$sql = "INSERT INTO `joke` SET
+    `joketext` = :joketext,
+    `jokedate` = CURDATE()";
+
+$stmt = $pdo->prepare($sql);
+
+$stmt->bindValue(':joketext', $_POST["joketext"]);
+
+$stmt->execute();
+//------------------------------
+
+
+
+
+
+
+
 ```
