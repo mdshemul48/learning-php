@@ -1,4 +1,4 @@
-<p><?= $totalJokes ?> jokes have been submitted to the Internet Joke Database.</p>
+<p style="margin-bottom: 20px; font-size: 20px;"><?= $totalJokes ?> jokes have been submitted to the Internet Joke Database.</p>
 
 <?php foreach ($jokes as $joke) : ?>
     <blockquote>
@@ -19,9 +19,14 @@
                                             ENT_QUOTES,
                                             'UTF-8'
                                         ); ?></a>)
+
+
+
         <form action="deletejoke.php" method="post">
             <button type="submit" name="deletebtn" value="<?= $joke['id'] ?>">Delete</button>
         </form>
+        <a href="editjoke.php?id=<?= $joke['id'] ?>"><button>Edit</button></a>
+
         </p>
 
     </blockquote>

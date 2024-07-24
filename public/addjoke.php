@@ -1,21 +1,12 @@
 <?php
-
+include_once __DIR__ . "/../includes/DatabaseConnection.php";
+include_once __DIR__ . "/../includes/DatabaseFunctions.php";
 
 if (isset($_POST["joketext"])) {
     try {
         $title = "Jokes List";
-        include_once __DIR__ . "/../includes/DatabaseConnection.php";
 
-
-        $sql = "INSERT INTO `joke` SET 
-        `joketext` = :joketext,
-        `jokedate` = CURDATE()";
-
-        $stmt = $pdo->prepare($sql);
-
-        $stmt->bindValue(':joketext', $_POST["joketext"]);
-
-        $stmt->execute();
+        insertJoke($pdo, $_POST["joketext"], 1);
 
         header("Location: jokeList.php");
     } catch (PDOException $e) {
