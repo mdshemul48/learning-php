@@ -6,7 +6,7 @@ if (isset($_POST["joketext"])) {
     try {
         $title = "Jokes List";
 
-        insertJoke($pdo,  [
+        insert($pdo, "joke", [
             'autherid' => 1,
             'jokeText' => $_POST['joketext'],
             'jokedate' => new DateTime()

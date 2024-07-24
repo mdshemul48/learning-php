@@ -16,28 +16,29 @@ function query($database, $sql, $args = [])
     return $q;
 }
 
-function totalJokes($database)
+function total($database, $tableName)
 {
-    $query = query($database, "SELECT COUNT(*) FROM `joke`;");
+    $query = query($database, "SELECT COUNT(*) FROM `$tableName`;");
     return $query->fetch()[0];
 }
 
 
-function allJokes($database)
+function findAll($database, $tableName)
 {
-    $sql = "SELECT `joke`.`id`, `joketext`, `name`, `email` FROM `joke` INNER JOIN `auther` ON `joke`.`autherid` = `auther`.`id`";
+    $sql = "SELECT * FROM `$tableName`";
     return query($database, $sql)->fetchAll();
 }
 
-function getJoke($database, $jokeId)
+function findById($database, $tableName, $fieldName, $id)
 {
-    $sql = "SELECT `joketext`, `id` FROM `joke` WHERE `id` = :id";
-    return query($database, $sql, [':id' => $jokeId])->fetch();
+    $sql = "SELECT * FROM `$tableName` WHERE `$fieldName` = :id";
+    return query($database, $sql, [':id' => $id])->fetch();
 }
 
-function insertJoke($database, $fields)
+function insert($database, $tableName, $fields)
 {
-    $query = 'INSERT INTO `joke` (';
+    $query = "INSERT INTO `$tableName` (";
+
     foreach ($fields as $key => $value) {
         $query .= '`' . $key . '`,';
     }
@@ -54,9 +55,9 @@ function insertJoke($database, $fields)
     query($database, $query, $fields);
 }
 
-function updateJoke($database, $fields)
+function update($database, $tableName, $fields)
 {
-    $sql = "UPDATE `joke` SET ";
+    $sql = "UPDATE `$tableName` SET ";
     foreach ($fields as $key => $value) {
         $sql .= "`$key` = :$key ,";
     }
@@ -68,8 +69,8 @@ function updateJoke($database, $fields)
 }
 
 
-function deleteJoke($database, $jokeId)
+function delete($database, $tableName, $jokeId)
 {
-    $sql = "DELETE FROM `joke` WHERE `id` = :id";
+    $sql = "DELETE FROM `$tableName` WHERE `id` = :id";
     query($database, $sql, [":id" => $jokeId]);
 }
