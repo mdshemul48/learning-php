@@ -123,6 +123,12 @@ $stmt->execute();
 //------------------------------
 
 
+// print "something" if something present or print variable not set. 
+echo $something ?? 'variable not set'; 
+
+
+
+
 
 
 

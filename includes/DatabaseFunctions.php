@@ -55,7 +55,7 @@ function insert($database, $tableName, $fields)
     query($database, $query, $fields);
 }
 
-function update($database, $tableName, $fields)
+function update($database, $tableName, $id, $fields)
 {
     $sql = "UPDATE `$tableName` SET ";
     foreach ($fields as $key => $value) {
@@ -64,7 +64,7 @@ function update($database, $tableName, $fields)
     $sql = rtrim($sql, ",");
     $sql .= "WHERE `id` = :primaryKey";
 
-    $fields["primaryKey"] = $fields['id'];
+    $fields["primaryKey"] = $id;
     query($database, $sql, $fields);
 }
 
@@ -73,4 +73,15 @@ function delete($database, $tableName, $jokeId)
 {
     $sql = "DELETE FROM `$tableName` WHERE `id` = :id";
     query($database, $sql, [":id" => $jokeId]);
+}
+
+
+function save($database, $tableName, $primaryKey, $record)
+{
+    try {
+        if ($record[$primaryKey] == "") $record[$primaryKey] = null;
+        insert($database, $tableName, $record);
+    } catch (PDOException $e) {
+        update($database, $tableName, $record[$primaryKey], $record);
+    }
 }

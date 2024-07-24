@@ -4,7 +4,7 @@ if (isset($_POST["deletebtn"])) {
         include_once __DIR__ . "/../includes/DatabaseConnection.php";
         include_once __DIR__ . "/../includes/DatabaseFunctions.php";
 
-        deleteJoke($pdo, $_POST["deletebtn"]);
+        delete($pdo, "joke", $_POST["deletebtn"]);
 
         header("Location: jokeList.php");
     } catch (PDOException $e) {
