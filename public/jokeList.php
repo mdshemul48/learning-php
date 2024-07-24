@@ -3,13 +3,13 @@
 
 try {
     $title = "Jokes List";
-    $pdo = new PDO("mysql:host=localhost;dbname=ijdb;charset=utf8", "ijdbuser", "mypassword");
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
+    include_once __DIR__ . "/../includes/DatabaseConnection.php";
+    include_once __DIR__ . "/../includes/DatabaseFunctions.php";
 
     $sql = "SELECT `joke`.`id`, `joketext`, `name`, `email` FROM `joke` INNER JOIN `auther` ON `joke`.`autherid` = `auther`.`id`";
     $jokes = $pdo->query($sql);
-
+    $totalJokes = totalJokes($pdo);
+    
     ob_start();
     include __DIR__ . "/../template/jokeList.php";
     $output = ob_get_clean();
