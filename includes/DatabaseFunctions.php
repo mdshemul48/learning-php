@@ -65,6 +65,7 @@ function update($database, $tableName, $id, $fields)
     $sql .= "WHERE `id` = :primaryKey";
 
     $fields["primaryKey"] = $id;
+    $fields = processDates($fields);
     query($database, $sql, $fields);
 }
 
