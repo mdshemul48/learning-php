@@ -15,6 +15,12 @@ function totalJokes($database)
 }
 
 
+function allJokes($database)
+{
+    $sql = "SELECT `joke`.`id`, `joketext`, `name`, `email` FROM `joke` INNER JOIN `auther` ON `joke`.`autherid` = `auther`.`id`";
+    return query($database, $sql)->fetchAll();
+}
+
 function getJoke($database, $jokeId)
 {
     $sql = "SELECT `joketext`, `id` FROM `joke` WHERE `id` = :id";
@@ -38,4 +44,11 @@ function updateJoke($database, $jokeId, $joketext, $authorId)
     $params = [":autherid" => $authorId, ":joketext" => $joketext, ":id" => $jokeId];
 
     query($database, $sql, $params);
+}
+
+
+function deleteJoke($database, $jokeId)
+{
+    $sql = "DELETE FROM `joke` WHERE `id` = :id";
+    query($database, $sql, [":id" => $jokeId]);
 }

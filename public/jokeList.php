@@ -5,8 +5,7 @@ include_once __DIR__ . "/../includes/DatabaseFunctions.php";
 try {
     $title = "Jokes List";
 
-    $sql = "SELECT `joke`.`id`, `joketext`, `name`, `email` FROM `joke` INNER JOIN `auther` ON `joke`.`autherid` = `auther`.`id`";
-    $jokes = $pdo->query($sql);
+    $jokes = allJokes($pdo);
     $totalJokes = totalJokes($pdo);
 
     ob_start();
