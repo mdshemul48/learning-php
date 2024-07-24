@@ -1,5 +1,13 @@
 <?php
-
+function processDates($fields)
+{
+    foreach ($fields as $key => $value) {
+        if ($value instanceof DateTime) {
+            $fields[$key] = $value->format('Y-m-d');
+        }
+    }
+    return $fields;
+}
 
 function query($database, $sql, $args = [])
 {
@@ -27,23 +35,36 @@ function getJoke($database, $jokeId)
     return query($database, $sql, [':id' => $jokeId])->fetch();
 }
 
-function insertJoke($database, $joketext, $authorId)
+function insertJoke($database, $fields)
 {
-    $sql = "INSERT INTO `joke` (`joketext`, `jokedate`, `autherid`) VALUES (:joketext, CURDATE(), :autherid)";
+    $query = 'INSERT INTO `joke` (';
+    foreach ($fields as $key => $value) {
+        $query .= '`' . $key . '`,';
+    }
+    $query = rtrim($query, ',');
+    $query .= ') VALUES (';
+    foreach ($fields as $key => $value) {
+        $query .= ':' . $key . ',';
+    }
+    $query = rtrim($query, ',');
+    $query .= ')';
 
-    $params = [":joketext" => $joketext, ":autherid" => $authorId];
+    $fields = processDates($fields);
 
-    query($database, $sql, $params);
+    query($database, $query, $fields);
 }
 
-function updateJoke($database, $jokeId, $joketext, $authorId)
+function updateJoke($database, $fields)
 {
-    $sql = "UPDATE `joke` SET `autherid` = :autherid, 
-    `joketext` = :joketext WHERE `id` = :id";
+    $sql = "UPDATE `joke` SET ";
+    foreach ($fields as $key => $value) {
+        $sql .= "`$key` = :$key ,";
+    }
+    $sql = rtrim($sql, ",");
+    $sql .= "WHERE `id` = :primaryKey";
 
-    $params = [":autherid" => $authorId, ":joketext" => $joketext, ":id" => $jokeId];
-
-    query($database, $sql, $params);
+    $fields["primaryKey"] = $fields['id'];
+    query($database, $sql, $fields);
 }
 
 

@@ -4,7 +4,11 @@ include_once __DIR__ . "/../includes/DatabaseFunctions.php";
 
 try {
     if (isset($_POST["joketext"])) {
-        updateJoke($pdo, $_POST["jokeid"], $_POST["joketext"], 1);
+        updateJoke($pdo, [
+            "id" => $_POST["jokeid"],
+            "joketext" => $_POST["joketext"],
+            "autherid" => 1
+        ]);
 
         header("Location: jokeList.php");
     } else {

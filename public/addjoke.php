@@ -6,7 +6,11 @@ if (isset($_POST["joketext"])) {
     try {
         $title = "Jokes List";
 
-        insertJoke($pdo, $_POST["joketext"], 1);
+        insertJoke($pdo,  [
+            'autherid' => 1,
+            'jokeText' => $_POST['joketext'],
+            'jokedate' => new DateTime()
+        ]);
 
         header("Location: jokeList.php");
     } catch (PDOException $e) {
