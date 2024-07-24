@@ -7,8 +7,8 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 
-    $sql = "SELECT * FROM joke";
-    $result = $pdo->query($sql);
+    $sql = "SELECT `joke`.`id`, `joketext`, `name`, `email` FROM `joke` INNER JOIN `auther` ON `joke`.`autherid` = `auther`.`id`";
+    $jokes = $pdo->query($sql);
 
     ob_start();
     include __DIR__ . "/../template/jokeList.php";

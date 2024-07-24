@@ -29,6 +29,36 @@ INSERT INTO `joke` SET
 `joketext` = :joketext,
 `jokedate` = CURDATE(); -- with CURDATE function generate date.
 
+
+ALTER TABLE `joke` ADD COLUMN `authername` VARCHAR(255); -- modify db table with ALTER.
+
+ALTER TABLE `joke` DROP COLUMN `authername`, DROP COLUMN `autheremail`; -- delete column;
+
+-- --------------------------------Relationship in mysql ------------------------------------
+
+SELECT `joke`.`id`, `joketext`, `name`, `email` FROM `joke` INNER JOIN `auther` ON `joke`.`autherid` = `auther`.`id`; -- inner join 2 table relation.
+
+
+
+SELECT `joke`.`id`, `joketext`, `name`, `email` FROM `joke` INNER JOIN `auther` ON `joke`.`autherid` = `auther`.`id`; -- where condition with inner join.
+
+
+
+
+
+-- Complex Inner join relation using lookup table. --
+SELECT
+    `joketext`,
+    `auther`.`name` as autherName,
+    `auther`.`email` as autherEmail,
+    `category`.`name` as categoryName
+FROM
+    `joke`
+INNER JOIN `auther` ON `joke`.`autherid` = `auther`.`id`
+INNER JOIN `jokecategory` ON `joke`.`id` = `jokecategory`.`jokeid`
+INNER JOIN `category` ON `category`.`id` = `jokecategory`.`categoryid`
+WHERE `joketext` LIKE "%this%";
+
 ```
 
 # php notes
