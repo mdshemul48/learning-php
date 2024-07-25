@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="jokes.css">
+    <link rel="stylesheet" href="/jokes.css">
     <title><?= $title ?> | IJDB</title>
 </head>
 
@@ -16,8 +16,8 @@
     <nav>
         <ul>
             <li><a href="/">Home</a></li>
-            <li><a href="index.php?action=jokelist">Joke List</a></li>
-            <li><a href="index.php?action=editjoke">Add a new joke</a></li>
+            <li><a href="/joke/list">Joke List</a></li>
+            <li><a href="/joke/edit">Add a new joke</a></li>
         </ul>
     </nav>
 

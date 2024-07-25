@@ -5,7 +5,7 @@ class JokeController
     private DatabaseTable $autherTable;
     private DatabaseTable $jokeTable;
 
-    public function __construct(DatabaseTable $autherTable, DatabaseTable $jokeTable)
+    public function __construct(DatabaseTable $jokeTable, DatabaseTable $autherTable)
     {
         $this->autherTable = $autherTable;
         $this->jokeTable = $jokeTable;
@@ -16,7 +16,7 @@ class JokeController
         return ["title" =>  "Home", "template" => "home.html.php"];
     }
 
-    public function jokeList()
+    public function list()
     {
         $title = "Jokes List";
 
@@ -44,7 +44,7 @@ class JokeController
         ];
     }
 
-    public function editjoke()
+    public function edit()
     {
         if (isset($_POST["joke"])) {
             $joke = $_POST["joke"];
@@ -52,7 +52,7 @@ class JokeController
             $joke["jokedate"] = new DateTime();
             $this->jokeTable->save($joke);
 
-            header("Location: index.php?action=jokelist");
+            header("Location: /joke/list");
         } else {
             if (isset($_GET["id"])) {
                 $joke = $this->jokeTable->findById("id", $_GET["id"]);
@@ -73,6 +73,6 @@ class JokeController
     {
         $this->jokeTable->delete($_POST["deletebtn"]);
 
-        header("Location: index.php?action=jokelist");
+        header("Location: /joke/list");
     }
 }
