@@ -136,4 +136,13 @@ echo $hello; // prints "world"
 
 
 
+
+function autoloader($className)
+{
+$file = __DIR__ . '/../classes/' . $className . '.php';
+include $file;
+}
+spl_autoload_register('autoloader'); // it will call the autoloader function if can't find a class in the scope.
+
+
 ```
