@@ -22,10 +22,10 @@
 
 
 
-        <form action="deletejoke.php" method="post">
+        <form action="index.php?action=delete" method="post">
             <button type="submit" name="deletebtn" value="<?= $joke['id'] ?>">Delete</button>
         </form>
-        <a href="editjoke.php?id=<?= $joke['id'] ?>"><button>Edit</button></a>
+        <a href="index.php?action=editjoke&id=<?= $joke['id'] ?>"><button>Edit</button></a>
 
         </p>
 

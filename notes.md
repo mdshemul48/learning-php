@@ -123,14 +123,16 @@ $stmt->execute();
 //------------------------------
 
 
-// print "something" if something present or print variable not set. 
-echo $something ?? 'variable not set'; 
+// print "something" if something present or print variable not set.
+echo $something ?? 'variable not set';
 
 
 
 
-
-
+// we can convert an array to a variables by extracting it.
+$array ['hello' => 'world'];
+extract($array);
+echo $hello; // prints "world"
 
 
 
