@@ -1,4 +1,12 @@
 <?php
+function loadTemplate($template, $variables = [])
+{
+    extract($variables);
+
+    ob_start();
+    include __DIR__ . "/../template/" . $template;
+    return ob_get_clean();
+}
 
 try {
     include_once __DIR__ . "/../includes/DatabaseConnection.php";
@@ -10,16 +18,13 @@ try {
     $jokeController = new JokeController($autherTable, $jokeTable);
 
     $action = $_GET["action"] ?? "home";
-    $page = $jokeController->$action();
+
+    if ($action == strtolower($action)) {
+        $page = $jokeController->$action();
+    } else header("location: index.php?action=" . strtolower($action));
 
     $title = $page['title'];
-    if (isset($page["variables"])) {
-        extract($page["variables"]);
-    }
-
-    ob_start();
-    include __DIR__ . "/../template/" . $page["template"];
-    $output = ob_get_clean();
+    $output = loadTemplate($page["template"], $page["variables"]);
 } catch (PDOException $e) {
     $title = 'An error has occurred';
     $output = 'Database error: ' . $e->getMessage() . ' in '
