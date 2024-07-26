@@ -2,56 +2,53 @@
 
 namespace Ijdb;
 
+use Ninja\DatabaseTable;
 use Ijdb\Controllers\Joke;
 use Ijdb\Controllers\Register;
+use Ninja\Routes;
 
-class IjdbRoutes
+class IjdbRoutes implements Routes
 {
-    public function callAction($route)
+    public function getRoutes()
     {
         include __DIR__ . '/../../includes/DatabaseConnection.php';
 
-        $jokesTable = new \Ninja\DatabaseTable($pdo, 'joke', 'id');
-        $authersTable = new \Ninja\DatabaseTable($pdo, 'auther', 'id');
+        $jokesTable = new DatabaseTable($pdo, 'joke', 'id');
+        $authersTable = new DatabaseTable($pdo, 'auther', 'id');
 
+        $jokeController = new Joke($jokesTable, $authersTable);
 
-        if ($route == "") {
-            $controller = new Joke(
-                $jokesTable,
-                $authersTable
-            );
-            $page = $controller->home();
-        } else if ($route == strtolower($route)) {
-            if ($route === 'joke/list') {
-                $controller = new Joke(
-                    $jokesTable,
-                    $authersTable
-                );
-                $page = $controller->list();
-            } elseif ($route === 'joke/home') {
-                $controller = new Joke(
-                    $jokesTable,
-                    $authersTable
-                );
-                $page = $controller->home();
-            } elseif ($route === 'joke/edit') {
-                $controller = new Joke(
-                    $jokesTable,
-                    $authersTable
-                );
-                $page = $controller->edit();
-            } elseif ($route === 'joke/delete') {
-                $controller = new Joke(
-                    $jokesTable,
-                    $authersTable
-                );
-                $page = $controller->delete();
-            } elseif ($route === 'register') {
-                $controller = new Register($authersTable);
-                $page = $controller->showForm();
-            }
-        }
+        $routes = [
+            'joke/edit' => [
+                'POST' => [
+                    'controller' => $jokeController,
+                    'action' => 'saveEdit'
+                ],
+                'GET' => [
+                    'controller' => $jokeController,
+                    'action' => 'edit'
+                ]
+            ],
+            'joke/delete' => [
+                'POST' => [
+                    'controller' => $jokeController,
+                    'action' => 'delete'
+                ]
+            ],
+            'joke/list' => [
+                'GET' => [
+                    'controller' => $jokeController,
+                    'action' => 'list'
+                ]
+            ],
+            '' => [
+                'GET' => [
+                    'controller' => $jokeController,
+                    'action' => 'home'
+                ]
+            ]
+        ];
 
-        return $page;
+        return $routes;
     }
 }

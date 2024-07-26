@@ -6,11 +6,14 @@ namespace Ninja;
 class EntryPoint
 {
     private string $route;
-    private $routes;
-    public function __construct($route, $routes)
+    private Routes $routes;
+    private $method;
+    public function __construct(string $route, string $method, Routes $routes)
     {
         $this->route = $route;
         $this->routes = $routes;
+        $this->method = $method;
+
         $this->checkURL();
     }
 
@@ -33,7 +36,14 @@ class EntryPoint
 
     public function run()
     {
-        $page = $this->routes->callAction($this->route);
+        $routes = $this->routes->getRoutes();
+
+        $controller = $routes[$this->route][$this->method]["controller"];
+        $action = $routes[$this->route][$this->method]["action"];
+
+        $page = $controller->$action();
+
+
 
         $title = $page['title'];
         if (isset($page['variables'])) {
