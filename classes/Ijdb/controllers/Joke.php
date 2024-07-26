@@ -7,12 +7,12 @@ use DateTime;
 
 class Joke
 {
-    private DatabaseTable $autherTable;
+    private DatabaseTable $authorTable;
     private DatabaseTable $jokeTable;
 
-    public function __construct(DatabaseTable $jokeTable, DatabaseTable $autherTable)
+    public function __construct(DatabaseTable $jokeTable, DatabaseTable $authorTable)
     {
-        $this->autherTable = $autherTable;
+        $this->authorTable = $authorTable;
         $this->jokeTable = $jokeTable;
     }
 
@@ -29,13 +29,13 @@ class Joke
         $totalJokes = $this->jokeTable->total();
 
         foreach ($result as $joke) {
-            $auther = $this->autherTable->findById("id", $joke['autherid']);
+            $author = $this->authorTable->findById("id", $joke['authorid']);
             $jokes[] = [
                 'id' => $joke['id'],
                 'joketext' => $joke['joketext'],
                 'jokedate' => $joke['jokedate'],
-                'name' => $auther['name'],
-                'email' => $auther['email']
+                'name' => $author['name'],
+                'email' => $author['email']
             ];
         }
 
@@ -53,7 +53,7 @@ class Joke
     {
         if (isset($_POST["joke"])) {
             $joke = $_POST["joke"];
-            $joke["autherid"] = 1;
+            $joke["authorid"] = 1;
             $joke["jokedate"] = new DateTime();
             $this->jokeTable->save($joke);
 

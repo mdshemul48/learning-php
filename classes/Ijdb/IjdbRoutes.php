@@ -14,9 +14,9 @@ class IjdbRoutes implements Routes
         include __DIR__ . '/../../includes/DatabaseConnection.php';
 
         $jokesTable = new DatabaseTable($pdo, 'joke', 'id');
-        $authersTable = new DatabaseTable($pdo, 'auther', 'id');
+        $authorsTable = new DatabaseTable($pdo, 'author', 'id');
 
-        $jokeController = new Joke($jokesTable, $authersTable);
+        $jokeController = new Joke($jokesTable, $authorsTable);
 
         $routes = [
             'joke/edit' => [

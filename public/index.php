@@ -1,7 +1,7 @@
 <?php
 
 use Ninja\EntryPoint;
-use \Ijdb\IjdbRoutes;
+use Ijdb\IjdbRoutes;
 
 include_once __DIR__ . "/../includes/autoload.php";
 

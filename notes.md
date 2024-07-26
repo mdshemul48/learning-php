@@ -30,17 +30,17 @@ INSERT INTO `joke` SET
 `jokedate` = CURDATE(); -- with CURDATE function generate date.
 
 
-ALTER TABLE `joke` ADD COLUMN `authername` VARCHAR(255); -- modify db table with ALTER.
+ALTER TABLE `joke` ADD COLUMN `authorname` VARCHAR(255); -- modify db table with ALTER.
 
-ALTER TABLE `joke` DROP COLUMN `authername`, DROP COLUMN `autheremail`; -- delete column;
+ALTER TABLE `joke` DROP COLUMN `authorname`, DROP COLUMN `authoremail`; -- delete column;
 
 -- --------------------------------Relationship in mysql ------------------------------------
 
-SELECT `joke`.`id`, `joketext`, `name`, `email` FROM `joke` INNER JOIN `auther` ON `joke`.`autherid` = `auther`.`id`; -- inner join 2 table relation.
+SELECT `joke`.`id`, `joketext`, `name`, `email` FROM `joke` INNER JOIN `author` ON `joke`.`authorid` = `author`.`id`; -- inner join 2 table relation.
 
 
 
-SELECT `joke`.`id`, `joketext`, `name`, `email` FROM `joke` INNER JOIN `auther` ON `joke`.`autherid` = `auther`.`id`; -- where condition with inner join.
+SELECT `joke`.`id`, `joketext`, `name`, `email` FROM `joke` INNER JOIN `author` ON `joke`.`authorid` = `author`.`id`; -- where condition with inner join.
 
 
 
@@ -49,12 +49,12 @@ SELECT `joke`.`id`, `joketext`, `name`, `email` FROM `joke` INNER JOIN `auther` 
 -- Complex Inner join relation using lookup table. --
 SELECT
     `joketext`,
-    `auther`.`name` as autherName,
-    `auther`.`email` as autherEmail,
+    `author`.`name` as authorName,
+    `author`.`email` as authorEmail,
     `category`.`name` as categoryName
 FROM
     `joke`
-INNER JOIN `auther` ON `joke`.`autherid` = `auther`.`id`
+INNER JOIN `author` ON `joke`.`authorid` = `author`.`id`
 INNER JOIN `jokecategory` ON `joke`.`id` = `jokecategory`.`jokeid`
 INNER JOIN `category` ON `category`.`id` = `jokecategory`.`categoryid`
 WHERE `joketext` LIKE "%this%";
