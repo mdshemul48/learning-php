@@ -1,6 +1,11 @@
 <?php
 
-class JokeController
+namespace Ijdb\Controllers;
+
+use \Ninja\DatabaseTable;
+use DateTime;
+
+class Joke
 {
     private DatabaseTable $autherTable;
     private DatabaseTable $jokeTable;

@@ -1,5 +1,7 @@
 <?php
 
+namespace Ninja;
+
 
 class EntryPoint
 {
@@ -24,7 +26,7 @@ class EntryPoint
     {
         extract($variables);
         ob_start();
-        include __DIR__ . '/../templates/' . $templateFileName;
+        include __DIR__ . '/../../templates/' . $templateFileName;
         return ob_get_clean();
     }
 
@@ -42,6 +44,6 @@ class EntryPoint
         } else {
             $output = $this->loadTemplate($page['template']);
         }
-        include  __DIR__ . '/../templates/layout.html.php';
+        include  __DIR__ . '/../../templates/layout.html.php';
     }
 }
