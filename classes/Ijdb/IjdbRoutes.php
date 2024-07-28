@@ -17,8 +17,26 @@ class IjdbRoutes implements Routes
         $authorsTable = new DatabaseTable($pdo, 'author', 'id');
 
         $jokeController = new Joke($jokesTable, $authorsTable);
+        $authorController = new Register($authorsTable);
 
         $routes = [
+            'author/register' => [
+                'GET' => [
+                    "controller" => $authorController,
+                    "action" => "registrationForm"
+                ],
+                "POST" => [
+                    "controller" => $authorController,
+                    "action" => "registerUser"
+                ]
+            ],
+            'author/success' => [
+                'GET' => [
+                    'controller' => $authorController,
+                    'action' => 'success'
+                ]
+            ],
+
             'joke/edit' => [
                 'POST' => [
                     'controller' => $jokeController,

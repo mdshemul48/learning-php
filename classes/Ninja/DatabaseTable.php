@@ -105,4 +105,14 @@ class DatabaseTable
             $this->update($record[$this->primaryKey], $record);
         }
     }
+
+    public function find(string $column, $value)
+    {
+        $sql = "SELECT * FROM `$this->tableName` WHERE `$column` = :field";
+
+        $query = $this->pdo->prepare($sql);
+        $query->execute(["field" => $value]);
+
+        return $query->fetchAll();
+    }
 }
